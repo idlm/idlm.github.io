@@ -1,5 +1,14 @@
+# deps
 node_modules/
-.deploy_git/
-public/
-db.json
-package-lock.json
+
+# vercel
+.vercel/
+
+# backup of the old hexo project (kept locally, not deployed)
+_hexo_old/
+
+# editor / OS
+.DS_Store
+*.log
+.env
+.env.local

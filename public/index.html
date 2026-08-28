@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>idlm's AI 工作台</title>
+  <meta name="description" content="idlm 的 AI 工具与聊天工作台" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">⌘</span>
+      <span class="brand-name">idlm · AI 工作台</span>
+    </div>
+    <nav class="topnav">
+      <a href="#home" class="active">主页</a>
+      <a href="#chat">对话</a>
+      <a href="https://github.com/idlm" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </header>
+
+  <main id="home" class="hero">
+    <h1 class="hero-title">一个更聪明的入口</h1>
+    <p class="hero-sub">直连主流 AI 工具,或在这里直接对话</p>
+
+    <form id="hero-form" class="hero-search" autocomplete="off">
+      <span class="hero-search-icon" aria-hidden="true">⌕</span>
+      <input id="hero-input" class="hero-search-input" type="text" placeholder="想做什么?试试“写一段 Python 排序”或“用 Perplexity 查..." />
+      <select id="hero-engine" class="hero-engine" aria-label="选择引擎">
+        <option value="chat">🤖  对话 (本页)</option>
+        <option value="perplexity">P  Perplexity</option>
+        <option value="chatgpt">💬  ChatGPT</option>
+        <option value="claude">✱  Claude</option>
+        <option value="gemini">✦  Gemini</option>
+        <option value="phind">⌥  Phind</option>
+        <option value="you">Ⓨ  You.com</option>
+        <option value="kagi">K  Kagi</option>
+        <option value="duckduckgo">🦆  DuckDuckGo</option>
+        <option value="google">G  Google</option>
+      </select>
+    </form>
+
+    <section class="grid" aria-label="AI 工具网格">
+      <a class="card" href="https://chatgpt.com" target="_blank" rel="noopener">
+        <div class="card-icon" style="--c1:#10a37f;--c2:#10a37f">💬</div>
+        <div class="card-title">ChatGPT</div>
+        <div class="card-desc">OpenAI · GPT-4o / o1</div>
+      </a>
+      <a class="card" href="https://claude.ai" target="_blank" rel="noopener">
+        <div class="card-icon" style="--c1:#cc785c;--c2:#cc785c">✱</div>
+        <div class="card-title">Claude</div>
+        <div class="card-desc">Anthropic · Claude 3.5</div>
+      </a>
+      <a class="card" href="https://gemini.google.com" target="_blank" rel="noopener">
+        <div class="card-icon" style="--c1:#4285f4;--c2:#9b72cb">✦</div>
+        <div class="card-title">Gemini</div>
+        <div class="card-desc">Google · 多模态</div>
+      </a>
+      <a class="card" href="https://www.perplexity.ai" target="_blank" rel="noopener">
+        <div class="card-icon" style="--c1:#1b9aaa;--c2:#06b6d4">P</div>
+        <div class="card-title">Perplexity</div>
+        <div class="card-desc">带引用的搜索式 AI</div>
+      </a>
+      <a class="card" href="https://www.phind.com" target="_blank" rel="noopener">
+        <div class="card-icon" style="--c1:#5b21b6;--c2:#7c3aed">⌥</div>
+        <div class="card-title">Phind</div>
+        <div class="card-desc">面向开发者的问答</div>
+      </a>
+      <a class="card" href="https://you.com" target="_blank" rel="noopener">
+        <div class="card-icon" style="--c1:#2563eb;--c2:#3b82f6">Ⓨ</div>
+        <div class="card-title">You.com</div>
+        <div class="card-desc">AI 搜索 + 应用</div>
+      </a>
+      <a class="card" href="https://kagi.com" target="_blank" rel="noopener">
+        <div class="card-icon" style="--c1:#000;--c2:#000">K</div>
+        <div class="card-title">Kagi</div>
+        <div class="card-desc">付费无广告搜索</div>
+      </a>
+      <a class="card" href="https://huggingface.co/chat" target="_blank" rel="noopener">
+        <div class="card-icon" style="--c1:#ff9a00;--c2:#ff9a00">🤗</div>
+        <div class="card-title">HF Chat</div>
+        <div class="card-desc">开源模型集散地</div>
+      </a>
+      <a class="card" href="https://www.midjourney.com" target="_blank" rel="noopener">
+        <div class="card-icon" style="--c1:#1a1a1a;--c2:#1a1a1a">🎨</div>
+        <div class="card-title">Midjourney</div>
+        <div class="card-desc">图像生成</div>
+      </a>
+      <a class="card" href="https://github.com/features/copilot" target="_blank" rel="noopener">
+        <div class="card-icon" style="--c1:#000;--c2:#000">⌥</div>
+        <div class="card-title">Copilot</div>
+        <div class="card-desc">GitHub 编程助手</div>
+      </a>
+      <a class="card" href="https://www.cursor.com" target="_blank" rel="noopener">
+        <div class="card-icon" style="--c1:#000;--c2:#000">⌗</div>
+        <div class="card-title">Cursor</div>
+        <div class="card-desc">AI 代码编辑器</div>
+      </a>
+      <a class="card" href="https://runwayml.com" target="_blank" rel="noopener">
+        <div class="card-icon" style="--c1:#000;--c2:#000">▶</div>
+        <div class="card-title">Runway</div>
+        <div class="card-desc">视频生成</div>
+      </a>
+    </section>
+  </main>
+
+  <section id="chat" class="chat">
+    <h2 class="chat-title">直接对话</h2>
+    <p class="chat-sub">由本页 OpenAI 后端驱动,需先在 Vercel 配置 <code>OPENAI_API_KEY</code>。</p>
+
+    <div id="messages" class="messages" aria-live="polite"></div>
+
+    <form id="chat-form" class="chat-form" autocomplete="off">
+      <textarea id="chat-input" class="chat-input" rows="3" placeholder="输入消息,Enter 发送,Shift+Enter 换行"></textarea>
+      <button id="chat-send" type="submit" class="chat-send">发送</button>
+    </form>
+
+    <div class="chat-status" id="chat-status"></div>
+  </section>
+
+  <footer class="footer">
+    <span>© 2026 idlm</span>
+    <span class="footer-sep">·</span>
+    <a href="https://github.com/idlm/idlm.github.io" target="_blank" rel="noopener">源码</a>
+  </footer>
+
+  <script src="/app.js" type="module"></script>
+</body>
+</html>
