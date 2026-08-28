@@ -1,0 +1,60 @@
+name: Deploy Hexo to GitHub Pages
+
+# Triggers:
+#   - push to main: full deploy (build + push to master)
+#   - workflow_dispatch: manual rerun from the Actions tab
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Only one deploy at a time; cancel in-progress runs on new pushes.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+# Default: read repo contents, write nothing.
+# hexo-deployer-git pushes to the `master` branch of the SAME repo, so we
+# need a one-time elevation. We use a fine-grained deploy key stored in
+# the DEPLOY_KEY secret (an SSH private key with write access to
+# idlm/idlm.github.io).
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full history helps hexo lastmod detection
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Generate static site
+        run: npx hexo generate
+
+      - name: Configure git for deploy
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan github.com >> ~/.ssh/known_hosts 2>/dev/null
+          git config --global user.name  "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Deploy to master branch
+        env:
+          GIT_SSH_COMMAND: "ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
+        run: npx hexo deploy
