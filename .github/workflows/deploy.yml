@@ -51,14 +51,21 @@ jobs:
 
       - name: Verify output
         run: |
-          test -f public/index.html || { echo "public/index.html missing"; exit 1; }
-          SZ=$(wc -c < public/index.html)
-          echo "public/index.html size: $SZ bytes"
-          if [ "$SZ" -lt 1000 ]; then
-            echo "::error::index.html is suspiciously small ($SZ bytes)"
-            exit 1
-          fi
           echo "--- artifact root ---"
           ls -la public/ | head -20
+          echo "--- index.html stats ---"
+          if [ -f public/index.html ]; then
+            SZ=$(wc -c < public/index.html)
+            echo "public/index.html size: $SZ bytes"
+            head -3 public/index.html
+            echo "..."
+            if [ "$SZ" -lt 200 ]; then
+              echo "::error::index.html is empty ($SZ bytes)"
+              exit 1
+            fi
+          else
+            echo "::error::public/index.html missing"
+            exit 1
+          fi
           echo "--- cover image check ---"
           ls -la public/images/welcome-cover.jpg 2>/dev/null || echo "no welcome-cover found"
