@@ -1,7 +1,7 @@
 {
   "$schema": "https://zeabur.com/schema.json",
   "buildCommand": "npm install",
-  "startCommand": "node api/chat.js",
+  "startCommand": "node api/index.js",
   "build": {
     "env": {
       "NODE_VERSION": "20"
