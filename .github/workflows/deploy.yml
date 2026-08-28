@@ -39,7 +39,16 @@ jobs:
           node-version: '22'
 
       - name: Install dependencies
-        run: npm ci --no-audit --no-fund
+        # `npm ci` is strict about package.json/lockfile drift; fall back
+        # to `npm install` (still lockfile-driven, but tolerant) for the
+        # rare case where a transitive drift slipped in.
+        run: |
+          if npm ci --no-audit --no-fund; then
+            echo "npm ci ok"
+          else
+            echo "::warning::npm ci failed, retrying with npm install"
+            npm install --no-audit --no-fund
+          fi
 
       - name: Generate static site
         run: npx hexo generate
