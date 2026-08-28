@@ -97,13 +97,8 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: next
 
-# Override theme defaults (favicons live in site source/images/, not
-# theme's, so npm theme upgrades don't wipe them out).
-favicon:
-  small: /images/favicon-16x16-next.png
-  medium: /images/favicon-32x32-next.png
-  apple_touch_icon: /images/apple-touch-icon-next.png
-  safari_pinned_tab: /images/favicon-next.svg
+# favicon overrides live in themes/next/_config.yml (the next theme is
+# vendored into the repo, not installed via npm, so editing it is safe).
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
