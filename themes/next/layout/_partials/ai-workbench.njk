@@ -1,0 +1,31 @@
+{# AI 工作台 widget — 在 hero 之下、文章列表之上渲染 #}
+{%- if is_home() %}
+<section class="ai-workbench">
+  <div class="workbench-grid">
+    <a class="wb-card" href="https://chatgpt.com" target="_blank" rel="noopener">
+      <div class="wb-icon">💬</div>
+      <div class="wb-title">AI 对话</div>
+      <div class="wb-desc">直接打开 ChatGPT</div>
+    </a>
+    <a class="wb-card" href="/notes/">
+      <div class="wb-icon">📝</div>
+      <div class="wb-title">笔记</div>
+      <div class="wb-desc">零散记录与备忘</div>
+    </a>
+    <a class="wb-card" href="https://github.com/idlm" target="_blank" rel="noopener">
+      <div class="wb-icon">🔗</div>
+      <div class="wb-title">GitHub</div>
+      <div class="wb-desc">idlm 的项目主页</div>
+    </a>
+  </div>
+
+  <form class="ai-search" action="https://www.google.com/search" method="get" target="_blank" rel="noopener">
+    <div class="ai-search-box">
+      <span class="ai-search-icon" aria-hidden="true">🔍</span>
+      <input class="ai-search-input" type="text" name="q" placeholder="搜点什么…  按 Enter 用 Google 搜索" autocomplete="off" />
+      <button class="ai-search-btn" type="submit">搜索</button>
+    </div>
+    <div class="ai-search-hint">提示：搜索关键词会带去 Google，结果里能直接看到 AI 工具的引用卡片</div>
+  </form>
+</section>
+{%- endif %}
