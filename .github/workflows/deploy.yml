@@ -56,21 +56,43 @@ jobs:
       - name: Prepare deploy artifact
         run: |
           # The hexo output directory is `public/`. We copy its contents
-          # into a clean directory at the repo root, so the actions-gh-pages
-          # action can publish it without dragging source files along.
+          # into a clean directory at the repo root, so we can publish it
+          # to master without dragging source files along.
           mkdir -p _site
           cp -r public/. _site/
           # write a .nojekyll so GitHub Pages doesn't try to process our
           # files with Jekyll (which would mangle underscore-prefixed dirs)
           touch _site/.nojekyll
+          echo "--- artifact listing ---"
+          find _site -type f | head -20
+          echo "--- index.html size (sanity check) ---"
+          ls -la _site/index.html
 
-      - name: Deploy to master branch
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          deploy_key: ${{ secrets.DEPLOY_KEY }}
-          publish_dir: ./_site
-          publish_branch: master
-          force_orphan: true
-          keep_files: false
-          user_name: github-actions[bot]
-          user_email: 41898282+github-actions[bot]@users.noreply.github.com
+      - name: Push master via SSH
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.ssh
+          printf '%s' "$DEPLOY_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan github.com >> ~/.ssh/known_hosts 2>/dev/null
+          git config --global user.name  "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          TMPDIR=$(mktemp -d)
+          cd "$TMPDIR"
+          git init -q
+          git remote add origin "git@github.com:idlm/idlm.github.io.git"
+          # Use --reference to leverage the source checkout's objects
+          # (avoids re-uploading unchanged blobs from the artifact).
+          git fetch -q --depth=1 origin master
+          git checkout -q --orphan _site_master
+          git rm -rfq . 2>/dev/null || true
+          cp -r /root/blog/_site/. .
+          git add -A
+          git commit -q -m "deploy: ${GITHUB_SHA::7}" \
+            -m "Triggered by ${GITHUB_WORKFLOW} @ ${GITHUB_SHA}"
+          git push -f origin HEAD:master
+          cd /root/blog
+          rm -rf "$TMPDIR"
