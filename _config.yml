@@ -95,7 +95,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: next
+theme: diaspora
 
 # favicon overrides live in themes/next/_config.yml (the next theme is
 # vendored into the repo, not installed via npm, so editing it is safe).
