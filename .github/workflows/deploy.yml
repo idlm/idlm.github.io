@@ -53,16 +53,24 @@ jobs:
       - name: Generate static site
         run: npx hexo generate
 
-      - name: Configure git for deploy
+      - name: Prepare deploy artifact
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan github.com >> ~/.ssh/known_hosts 2>/dev/null
-          git config --global user.name  "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # The hexo output directory is `public/`. We copy its contents
+          # into a clean directory at the repo root, so the actions-gh-pages
+          # action can publish it without dragging source files along.
+          mkdir -p _site
+          cp -r public/. _site/
+          # write a .nojekyll so GitHub Pages doesn't try to process our
+          # files with Jekyll (which would mangle underscore-prefixed dirs)
+          touch _site/.nojekyll
 
       - name: Deploy to master branch
-        env:
-          GIT_SSH_COMMAND: "ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
-        run: npx hexo deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          deploy_key: ${{ secrets.DEPLOY_KEY }}
+          publish_dir: ./_site
+          publish_branch: master
+          force_orphan: true
+          keep_files: false
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
