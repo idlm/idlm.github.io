@@ -2,17 +2,21 @@
   "name": "idlm-ai-workbench",
   "version": "1.0.0",
   "private": true,
-  "description": "idlm's personal AI workbench — static front end (Vercel) + OpenAI proxy (api/chat.js)",
+  "description": "idlm's personal AI workbench — static front end + OpenAI proxy (works on Vercel, Zeabur, Fly.io, Railway)",
   "type": "module",
+  "main": "api/index.js",
   "scripts": {
-    "dev": "vercel dev",
+    "dev": "node api/index.js",
+    "start": "node api/index.js",
+    "vercel-build": "echo skip",
     "deploy": "vercel deploy --prod",
     "deploy-preview": "vercel deploy"
   },
   "dependencies": {
-    "openai": "^4.77.0"
-  },
-  "devDependencies": {
+    "openai": "^4.77.0",
     "vercel": "^59.9.1"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

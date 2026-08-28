@@ -1,0 +1,27 @@
+{
+  "$schema": "https://zeabur.com/schema.json",
+  "buildCommand": "npm install",
+  "startCommand": "node api/chat.js",
+  "build": {
+    "env": {
+      "NODE_VERSION": "20"
+    }
+  },
+  "env": {
+    "OPENAI_API_KEY": {
+      "default": "",
+      "required": true,
+      "description": "OpenAI API key (sk-...). Set this in the Zeabur dashboard Variables tab, never commit it."
+    },
+    "OPENAI_MODEL": {
+      "default": "gpt-4o-mini",
+      "required": false,
+      "description": "OpenAI chat model to use. Default: gpt-4o-mini"
+    },
+    "SYSTEM_PROMPT": {
+      "default": "You are a helpful AI assistant. Reply in the language the user uses. Be concise.",
+      "required": false,
+      "description": "System prompt prepended to every conversation."
+    }
+  }
+}

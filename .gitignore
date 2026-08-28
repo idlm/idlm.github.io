@@ -12,3 +12,4 @@ _hexo_old/
 *.log
 .env
 .env.local
+.vercel
