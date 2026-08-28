@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>idlm's AI 工作台</title>
+  <meta http-equiv="refresh" content="5;url=https://blog-nu-brown-96.vercel.app/" />
+  <link rel="canonical" href="https://blog-nu-brown-96.vercel.app/" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+        "PingFang SC", "Microsoft YaHei", "Segoe UI", Helvetica, Arial, sans-serif;
+      color: #f5f5f7;
+      background:
+        radial-gradient(ellipse 1200px 700px at 20% 0%,
+          rgba(70, 130, 230, 0.18) 0%, rgba(70, 130, 230, 0) 60%),
+        radial-gradient(ellipse 900px 600px at 90% 10%,
+          rgba(160, 80, 200, 0.14) 0%, rgba(160, 80, 200, 0) 65%),
+        radial-gradient(ellipse 1100px 800px at 50% 100%,
+          rgba(20, 60, 120, 0.25) 0%, rgba(20, 60, 120, 0) 70%),
+        linear-gradient(180deg, #0a0a0c 0%, #111114 45%, #1d1d1f 100%);
+      background-attachment: fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card {
+      max-width: 520px;
+      margin: 0 24px;
+      padding: 36px 32px 32px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      backdrop-filter: blur(30px) saturate(180%);
+      -webkit-backdrop-filter: blur(30px) saturate(180%);
+      text-align: center;
+      box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.6);
+    }
+    h1 { font-size: 1.6rem; font-weight: 600; letter-spacing: -0.015em; margin: 0 0 8px; }
+    p  { font-size: 0.95rem; color: #a1a1a6; margin: 0 0 22px; }
+    a.cta {
+      display: inline-block;
+      padding: 12px 26px;
+      border-radius: 999px;
+      background: #0071e3;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    a.cta:hover { background: #0077ed; transform: translateY(-1px); }
+    .hint { margin-top: 18px; font-size: 0.78rem; color: #6e6e73; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>已搬家到新地址</h1>
+    <p>idlm 的站点现在跑在 Vercel 上。<br/>5 秒后自动跳转…</p>
+    <a class="cta" href="https://blog-nu-brown-96.vercel.app/" rel="noopener">立即前往 →</a>
+    <div class="hint">新地址：blog-nu-brown-96.vercel.app</div>
+  </div>
+  <script>
+    // Belt-and-suspenders: hard navigation if meta refresh is ignored
+    // (some browsers throttle cross-origin meta refresh).
+    setTimeout(function () {
+      window.location.replace('https://blog-nu-brown-96.vercel.app/');
+    }, 5000);
+  </script>
+</body>
+</html>
